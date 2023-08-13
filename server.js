@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 
-// Define a function to generate a short URL key
+
 const generateShortUrlKey = () => {
   return shortid.generate();
 };
