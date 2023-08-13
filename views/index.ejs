@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css"> 
+  <title>URL Shortener</title>
+</head>
+<body>
+ 
+  <div class="container">
+ 
+    <h1>URL Shortener</h1>
+  </header>
+    <form class="form-container" action="/shortUrls" method="POST">
+        <div class="form-row">
+            <label for="fullUrl">Enter the URL:</label>
+            <input type="text" id="fullUrl" name="fullUrl" placeholder="Paste long url and shortern it" required>
+        </div>
+      <button class="submit-button" type="submit">Shorten</button>
+    </form>
+    
+    <div class="table-conatiner">
+        <table class="url-table">
+        <thead>
+            <tr>
+            <th>S.No</th>
+            <th>Long URL</th>
+            <th>Short URL</th>
+            <th>Copy</th>
+            <th>Delete</th> 
+            </tr>
+        </thead>
+        <tbody class="short-links">
+            <% shortUrls.forEach((url, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><a class="longUrl" href="<%= url.fullUrl %>" target="_blank"><%= url.fullUrl %></a></td>
+                <td><a class="shortUrl" href="/<%= url.shortUrl %>"><%= url.shortUrl %></a></td>
+                <td><button class="copy-button" data-clipboard-text="<%= url.shortUrl %>">Copy</button></td>
+                <td><button class="delete-button" data-id="<%= url._id %>">Delete</button></td> <!-- Add Delete button -->
+            </tr>
+            <% }); %>
+        </tbody>
+        </table>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script>
+    const clipboard = new ClipboardJS('.copy-button');
+    clipboard.on('success', function(e) {
+      alert('Short URL copied to clipboard: ' + e.text);
+    });
+
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const id = button.getAttribute('data-id');
+        const response = await fetch(`/delete/${id}`, { method: 'DELETE' });
+        if (response.ok) {
+          location.reload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
