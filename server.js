@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const axios = require('axios'); // Import axios
+const axios = require('axios');
 const ShortUrl = require('./models/shortUrl');
 const shortid = require('shortid');
 
