@@ -38,7 +38,7 @@
                 <td><a class="longUrl" href="<%= url.fullUrl %>" target="_blank"><%= url.fullUrl %></a></td>
                 <td><a class="shortUrl" href="/<%= url.shortUrl %>"><%= url.shortUrl %></a></td>
                 <td><button class="copy-button" data-clipboard-text="<%= url.shortUrl %>">Copy</button></td>
-                <td><button class="delete-button" data-id="<%= url._id %>">Delete</button></td> <!-- Add Delete button -->
+                <td><button class="delete-button" data-id="<%= url._id %>">Delete</button></td> 
             </tr>
             <% }); %>
         </tbody>
